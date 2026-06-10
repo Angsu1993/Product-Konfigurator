@@ -7,11 +7,10 @@ import { SizeSelector } from '../size-selector/size-selector';
 import { LogoUpload } from '../logo-upload/logo-upload';
 import { Pricing } from '../../services/pricing';
 import { LogoPlacementOptionValue } from '../../models/product.model';
-import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-product-configurator',
-  imports: [ColorSelector, SizeSelector, LogoUpload, NgClass],
+  imports: [ColorSelector, SizeSelector, LogoUpload],
   templateUrl: './product-configurator.html',
   styleUrl: './product-configurator.scss',
 })
