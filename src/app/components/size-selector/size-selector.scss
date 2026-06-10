@@ -1,0 +1,41 @@
+.size-selector {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+}
+
+.size-selector-options {
+  display: flex;
+  gap: var(--spacing-1);
+  flex-wrap: wrap;
+}
+
+.size-selector-button {
+  min-width: 48px;
+  padding: 10px 14px;
+  border: 1px solid var(--color-light-gray);
+  border-radius: var(--radius-sm);
+  background: var(--color-background);
+  color: var(--color-black);
+  cursor: pointer;
+  transition:
+    border-color 160ms ease,
+    background-color 160ms ease,
+    transform 160ms ease;
+}
+
+.size-selector-button:hover {
+  transform: translateY(-1px);
+}
+
+.size-selector-button--selected {
+  border-color: var(--color-black);
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.size-selector-button--disabled {
+  color: var(--color-medium-gray);
+  background: #f5f5f5;
+  text-decoration: line-through;
+}

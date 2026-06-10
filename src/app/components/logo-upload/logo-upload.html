@@ -1,0 +1,18 @@
+<section class="logo-upload" aria-labelledby="logo-upload-title">
+  <h2 id="logo-upload-title">Upload Logo</h2>
+
+  <label class="logo-upload-button">
+    <input
+      type="file"
+      [accept]="accept()"
+      (change)="onFileSelected($event)"
+    />
+    Choose File
+  </label>
+
+  @if (validationError) {
+    <p class="logo-upload-error">
+      {{ validationError }}
+    </p>
+  }
+</section>

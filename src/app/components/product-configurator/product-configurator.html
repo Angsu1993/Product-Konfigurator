@@ -1,0 +1,68 @@
+<section class="product-configurator">
+    <div class="preview-box">
+        <img [src]="product().baseImageUrl" [alt]="product().name" class="product-image"
+            [style.filter]="selectedColorFilter()" />
+        @if (uploadedLogoUrl()) {
+        <img [src]="uploadedLogoUrl()!" alt="Uploaded logo preview" class="uploaded-logo"
+            [class]="logoPlacementClass()" />
+        }
+    </div>
+
+    <div class="product-options">
+        <div class="product-info">
+            <h1>{{ product().name}}</h1>
+            <p>{{ product().description.title}}</p>
+            <p>{{ product().description.intro}}</p>
+        </div>
+
+        <div class="options">
+            <app-color-selector [colors]="colorValues()" [selectedColorId]="selectedColorId()"
+                (colorSelected)="onColorSelected($event)" />
+        </div>
+
+        <div class="options">
+            <app-size-selector [sizes]="sizeValues()" [selectedSizeId]="selectedSizeId()"
+                [disabledSizeIds]="disabledSizeIds()" (sizeSelected)="onSizeSelected($event)" />
+
+
+            @if (isSelectedSizeInvalid()) {
+            <p class="validation-message">
+                The selected size is not available for the chosen color. Please choose another size.
+            </p>
+            }
+        </div>
+
+        <div class="options">
+            <app-logo-upload [accept]="logoUploadOption()?.optionDetails?.accept ?? ''"
+                [maxFileSize]="logoUploadOption()?.optionDetails?.maxFileSize ?? '12MB'"
+                (logoSelected)="onLogoSelected($event)" />
+
+            @if (uploadedLogoUrl()) {
+            <div class="logo-placement">
+                <h2>Logo Placement</h2>
+
+                <div class="logo-placement-options">
+                    @for (placement of logoPlacementValues(); track placement.id) {
+                    <button type="button" class="logo-placement-button"
+                        [class.logo-placemen-button--selected]="selectedLogoPlacementId() === placement.id"
+                        (click)="onLogoPlacementSelected(placement)">
+                        {{ placement.value }}
+                    </button>
+                    }
+                </div>
+            </div>
+            }
+        </div>
+
+        <div class="checkout-panel">
+            <div class="price-row">
+                <span>Price</span>
+                <strong>{{ formattedTotalPrice() }}</strong>
+            </div>
+
+            <button class="btn btn-primary" [disabled]="!canAddToCart()">
+                Add to Cart
+            </button>
+        </div>
+    </div>
+</section>

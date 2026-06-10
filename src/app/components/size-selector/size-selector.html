@@ -1,0 +1,19 @@
+<section class="size-selector" aria-labelledby="size-selector-title">
+  <h2 id="size-selector-title">Size</h2>
+
+  <div class="size-selector-options">
+    @for (size of sizes(); track size.id) {
+      <button
+        type="button"
+        class="size-selector-button"
+        [class.size-selector-button--selected]="selectedSizeId() === size.id"
+        [class.size-selector-button--disabled]="disabledSizeCheck().has(size.id)"
+        [attr.aria-pressed]="selectedSizeId() === size.id"
+        [attr.aria-disabled]="disabledSizeCheck().has(size.id)"
+        (click)="selectSize(size)"
+      >
+        {{ size.value }}
+      </button>
+    }
+  </div>
+</section>

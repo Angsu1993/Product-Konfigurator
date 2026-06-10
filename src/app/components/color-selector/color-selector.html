@@ -1,0 +1,17 @@
+<section class="color-selector" aria-labelledby="color-selector-title">
+  <h2 id="color-selector-title">Color</h2>
+
+  <div class="color-selector-options">
+    @for (color of colors(); track color.id) {
+      <button
+        type="button"
+        class="color-selector-sample"
+        [class.color-selector-sample--selected]="selectedColorId() === color.id"
+        [style.background-color]="color.value"
+        [attr.aria-label]="'Select color ' + color.value"
+        [attr.aria-pressed]="selectedColorId() === color.id"
+        (click)="selectColor(color)"
+      ></button>
+    }
+  </div>
+</section>
