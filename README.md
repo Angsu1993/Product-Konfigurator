@@ -1,7 +1,6 @@
 # Eddyson Merch Product Configurator
 
-Interactive product configurator built with Angular.
-The app allows users to configure a T-shirt by selecting color, size, logo upload and logo placement, with live preview, validation and mocked price updates.
+Interactive product configurator built with Angular 20 using standalone components, Signals, computed state and modern Angular control flow.The app allows users to configure a T-shirt by selecting color, size, logo upload and logo placement, with live preview, validation and mocked price updates.
 
 ## Run Locally
 
@@ -79,13 +78,13 @@ I chose this approach instead of automatically resetting the size because it avo
 
 Alternatives considered:
 
-* Automatically reset the invalid size
+* Automatically reset the invalid size.
   This keeps the configuration always valid, but may confuse users because their selection disappears.
 
-* Keep the value and only block Add to Cart
+* Keep the value and only block Add to Cart.
   This is transparent and preserves user intent, so this approach was chosen.
 
-* Show a confirmation dialog
+* Show a confirmation dialog.
   This would interrupt the flow and felt too heavy for this simple configurator.
 
 ## Preventing Invalid Cart Submission
@@ -286,7 +285,7 @@ This reduces the need for multiple image assets and demonstrates how the provide
 * Add full internationalization and currency formatting
 
 
-## Data Structure Feedback and Implemented Variant
+## Data Structure Feedback
 
 The provided backend data structure was treated as a useful draft, but not as a final layout.
 
