@@ -34,9 +34,16 @@
       object-fit: contain;
   }
 
+  .shirt-preview {
+      position: relative;
+      display: inline-block;
+      width: fit-content;
+  }
+
   .product-image {
-      max-width: 80%;
+      width: min(100%, 420px);
       height: auto;
+      display: block;
   }
 
   .product-options {
@@ -148,25 +155,37 @@
   }
 
   .uploaded-logo--torso {
-      width: 95px;
-      top: 48%;
+      width: 22%;
+      top: 45%;
       left: 50%;
       transform: translate(-50%, -50%);
   }
 
   .uploaded-logo--left-chest {
-      width: 40px;
-      top: 35%;
-      left: 35%;
+      width: 12%;
+      top: 32%;
+      left: 34%;
       transform: translate(-50%, -50%);
   }
 
   .uploaded-logo--right-chest {
-      width: 40px;
-      top: 35%;
-      left: 64%;
+      width: 12%;
+      top: 32%;
+      left: 60%;
       transform: translate(-50%, -50%);
   }
+
+  @media (min-width: 1024px) {
+  .shirt-preview {
+    width: 420px;
+    margin-inline: auto;
+  }
+
+  .product-image {
+    width: 100%;
+    height: auto;
+  }
+}
 
   /* for reponsive design in smaller screens */
   @media (max-width: 768px) {
@@ -182,4 +201,5 @@
       .product-image {
           max-height: 300px;
       }
+
   }

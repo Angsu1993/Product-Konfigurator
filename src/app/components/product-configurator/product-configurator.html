@@ -1,11 +1,13 @@
 <section class="product-configurator">
     <div class="preview-box">
-        <img [src]="product().baseImageUrl" [alt]="product().name" class="product-image"
-            [style.filter]="selectedColorFilter()" />
-        @if (uploadedLogoUrl()) {
-        <img [src]="uploadedLogoUrl()!" alt="Uploaded logo preview" class="uploaded-logo"
-            [class]="logoPlacementClass()" />
-        }
+        <div class="shirt-preview">
+            <img [src]="product().baseImageUrl" [alt]="product().name" class="product-image"
+                [style.filter]="selectedColorFilter()" />
+            @if (uploadedLogoUrl()) {
+            <img [src]="uploadedLogoUrl()!" alt="Uploaded logo preview" class="uploaded-logo"
+                [class]="logoPlacementClass()" />
+            }
+        </div>
     </div>
 
     <div class="product-options">
