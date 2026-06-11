@@ -2,6 +2,8 @@
 
 Interactive product configurator built with Angular 20 using standalone components, Signals, computed state and modern Angular control flow.The app allows users to configure a T-shirt by selecting color, size, logo upload and logo placement, with live preview, validation and mocked price updates.
 
+<img width="916" height="794" alt="Screenshot 2026-06-10 at 21 55 47" src="https://github.com/user-attachments/assets/59fb3d40-be16-4c40-83ca-b61f91a63ee1" />
+
 ## Run Locally
 
 ```bash
