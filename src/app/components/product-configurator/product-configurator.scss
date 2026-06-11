@@ -170,12 +170,12 @@
 
   /* for reponsive design in smaller screens */
   @media (max-width: 768px) {
-      .configurator {
+      .product-configurator {
           grid-template-columns: 1fr;
           padding: var(--spacing-2);
       }
 
-      .preview-card {
+      .preview-box {
           min-height: 360px;
       }
 
