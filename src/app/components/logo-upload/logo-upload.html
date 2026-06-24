@@ -1,18 +1,20 @@
-<section class="logo-upload" aria-labelledby="logo-upload-title">
+<div class="logo-upload" aria-labelledby="logo-upload-title">
   <h2 id="logo-upload-title">Upload Logo</h2>
-
-  <label class="logo-upload-button">
-    <input
-      type="file"
-      [accept]="accept()"
-      (change)="onFileSelected($event)"
-    />
-    Choose File
-  </label>
+  <div class="upload-option">
+    <label class="logo-upload-button">
+      <input type="file" [accept]="accept()" (change)="onFileSelected($event)" />
+      Choose File
+    </label>
+  @if (hasLogo()) {
+  <button type="button" class="remove-logo-button" (click)="removeLogo()">
+    x
+  </button>
+  }
+    </div>
 
   @if (validationError) {
-    <p class="logo-upload-error">
-      {{ validationError }}
-    </p>
+  <p class="logo-upload-error">
+    {{ validationError }}
+  </p>
   }
-</section>
+</div>

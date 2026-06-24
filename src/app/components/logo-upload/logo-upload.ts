@@ -10,8 +10,10 @@ import { UploadedLogo } from '../../models/product-option.model';
 export class LogoUpload {
   accept = input.required<string>();
   maxFileSize = input.required<string>();
+  hasLogo = input<boolean>(false);
 
   logoSelected = output<UploadedLogo>();
+  logoRemoved = output<void>();
 
   validationError = '';
 
@@ -55,4 +57,8 @@ export class LogoUpload {
 
     return maxSizeInMb * 1024 * 1024;
   });
+
+  removeLogo(): void {
+    this.logoRemoved.emit();
+  }
 }

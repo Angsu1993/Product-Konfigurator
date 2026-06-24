@@ -175,17 +175,36 @@
       transform: translate(-50%, -50%);
   }
 
-  @media (min-width: 1024px) {
-  .shirt-preview {
-    width: 420px;
-    margin-inline: auto;
+  .color-flash {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.10;
+      z-index: 9999;
+      animation: colorFlash 400ms ease-out forwards;
   }
 
-  .product-image {
-    width: 100%;
-    height: auto;
+  @keyframes colorFlash {
+      from {
+          opacity: 0.50;
+      }
+
+      to {
+          opacity: 0;
+      }
   }
-}
+
+  @media (min-width: 1024px) {
+      .shirt-preview {
+          width: 420px;
+          margin-inline: auto;
+      }
+
+      .product-image {
+          width: 100%;
+          height: auto;
+      }
+  }
 
   /* for reponsive design in smaller screens */
   @media (max-width: 768px) {

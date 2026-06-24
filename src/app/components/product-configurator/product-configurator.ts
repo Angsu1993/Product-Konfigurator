@@ -1,5 +1,4 @@
-import { Component, computed, signal, inject } from '@angular/core';
-import { PRODUCT_DATA } from '../../data/product';
+import { Component, input, computed, signal, inject } from '@angular/core';
 import { Product } from '../../models/product.model';
 import { ColorOptionValue, SizeOptionValue, UploadedLogo } from '../../models/product-option.model';
 import { ColorSelector } from '../color-selector/color-selector';
@@ -16,27 +15,30 @@ import { LogoPlacementOptionValue } from '../../models/product.model';
 })
 export class ProductConfigurator {
   private readonly pricingService = inject(Pricing);
-  product = signal<Product>(PRODUCT_DATA)
+  product = input.required<Product>();
+  flashColor = signal<string | null>(null);
 
   //--------color selector---------
 
   // getting color selector info from product data
   colorOption = computed(() => this.product().options.find((option) => option.id === 'color'));
   colorValues = computed(() => this.colorOption()?.optionDetails.values as ColorOptionValue[]);
+  selectedColorId = signal<string | null>(null);
 
   //by default first color is slected
-  selectedColorId = signal(this.colorValues()[0]?.id ?? null);
+  activeColorId = computed(() =>
+    this.selectedColorId() ?? this.colorValues()[0]?.id ?? null
+  );
 
   selectedColor = computed(() =>
     this.colorValues().find(
-      color => color.id === this.selectedColorId()
-    ) ?? null
+      color => color.id === this.activeColorId()) ?? null
   );
   //on color select - setting color
   onColorSelected(color: ColorOptionValue): void {
     this.selectedColorId.set(color.id);
     this.loadPriceModifier('color', color.id);
-
+    this.triggerColorFlash(color.value);
   }
 
   selectedColorFilter = computed(() => {
@@ -49,13 +51,15 @@ export class ProductConfigurator {
   // getting size selector info from product data
   sizeOption = computed(() => this.product().options.find((option) => option.id === 'size'));
   sizeValues = computed(() => this.sizeOption()?.optionDetails.values as SizeOptionValue[]);
+  selectedSizeId = signal<string | null>(null);
 
   //by default first size is slected
-  selectedSizeId = signal(this.sizeValues()[0]?.id ?? null);
-
+  activeSizeId = computed(() =>
+    this.selectedSizeId() ?? this.sizeValues()[0]?.id ?? null
+  );
   selectedSize = computed(() =>
     this.sizeValues().find(
-      size => size.id === this.selectedSizeId()
+      size => size.id === this.activeSizeId()
     ) ?? null
   );
 
@@ -66,7 +70,7 @@ export class ProductConfigurator {
 
   //checking size availablity depending on size
   disabledSizeIds = computed(() => {
-    const selectedColorId = this.selectedColorId();
+    const selectedColorId = this.activeColorId();
     const rule = this.product().conditionalOptionDetails.find((rule) =>
       rule.when.all.some(
         (condition) =>
@@ -79,11 +83,10 @@ export class ProductConfigurator {
   });
 
   isSelectedSizeInvalid = computed(() => {
-    const selectedSizeId = this.selectedSizeId();
-    if (!selectedSizeId) {
+    if (!this.activeSizeId()) {
       return false;
     }
-    return this.disabledSizeIds().includes(selectedSizeId);
+    return this.disabledSizeIds().includes(this.activeSizeId());
   });
 
   //disabling add cart button
@@ -148,13 +151,15 @@ export class ProductConfigurator {
 
   //------------Logo placement try----------
   logoPlacementValues = computed(() => this.logoUploadOption()?.optionDetails.values as LogoPlacementOptionValue[]);
+  selectedLogoPlacementId = signal<string | null>(null);
 
-  selectedLogoPlacementId = signal<string | null>(
-    this.logoPlacementValues()[0]?.id ?? null
+
+  activeLogoPlacementId = computed(() =>
+    this.selectedLogoPlacementId() ?? this.logoPlacementValues()[0]?.id ?? null
   );
 
   selectedLogoPlacement = computed(() =>
-    this.logoPlacementValues().find(placement => placement.id === this.selectedLogoPlacementId()) ?? null);
+    this.logoPlacementValues().find(placement => placement.id === this.activeLogoPlacementId()) ?? null);
 
   // style changes for logo placement
   logoPlacementClass = computed(() => {
@@ -174,5 +179,22 @@ export class ProductConfigurator {
   onLogoPlacementSelected(placement: LogoPlacementOptionValue): void {
     this.selectedLogoPlacementId.set(placement.id);
     this.loadPriceModifier('logo-upload', placement.id);
+  }
+
+  private triggerColorFlash(color: string): void {
+    this.flashColor.set(color);
+    setTimeout(() => {
+      this.flashColor.set(null);
+    }, 600)
+  }
+
+  removeLogo(): void {
+    this.uploadedLogoUrl.set(null);
+    this.selectedLogoPlacementId.set(null);
+
+    this.priceModifiers.update((current) => {
+      const { ['logo-upload']: _removed, ...rest } = current;
+      return rest;
+    });
   }
 }

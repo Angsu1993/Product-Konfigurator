@@ -26,3 +26,21 @@
   color: #b00020;
   font-size: 13px;
 }
+
+.upload-option {
+  display: flex;
+}
+
+.remove-logo-button {
+  width: fit-content;
+  border: none;
+  background: transparent;
+  color: #b00020;
+  font: inherit;
+  cursor: pointer;
+  padding-left: 1rem;
+}
+
+.remove-logo-button:hover {
+  color: #7a0015;
+}

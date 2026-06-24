@@ -1,4 +1,7 @@
 <section class="product-configurator">
+    @if (flashColor()) {
+    <div class="color-flash" [style.background]="flashColor()"></div>
+    }
     <div class="preview-box">
         <div class="shirt-preview">
             <img [src]="product().baseImageUrl" [alt]="product().name" class="product-image"
@@ -36,9 +39,8 @@
 
         <div class="options">
             <app-logo-upload [accept]="logoUploadOption()?.optionDetails?.accept ?? ''"
-                [maxFileSize]="logoUploadOption()?.optionDetails?.maxFileSize ?? '12MB'"
-                (logoSelected)="onLogoSelected($event)" />
-
+                [maxFileSize]="logoUploadOption()?.optionDetails?.maxFileSize ?? '12MB'" [hasLogo]="!!uploadedLogoUrl()"
+                (logoSelected)="onLogoSelected($event)" (logoRemoved)="removeLogo()"/>
             @if (uploadedLogoUrl()) {
             <div class="logo-placement">
                 <h2>Logo Placement</h2>
